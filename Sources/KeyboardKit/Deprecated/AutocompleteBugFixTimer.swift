@@ -32,7 +32,11 @@ public class AutocompleteBugFixTimer {
     // MARK: - Internal Properties
     
     var hasSelectedText: Bool {
-        return proxy.selectedText != nil
+        if #available(iOSApplicationExtension 11.0, *) {
+            return proxy.selectedText != nil
+        } else {
+            return false
+        }
     }
     
     var hasTextAfterTextInputCursorPosition: Bool {
