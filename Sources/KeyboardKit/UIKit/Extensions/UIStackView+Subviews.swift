@@ -27,6 +27,16 @@ public extension UIStackView {
      Remove a set of views from the stack view.
      */
     func removeArrangedSubviews(_ subviews: [UIView]) {
+        for row in subviews {
+            if row is KeyboardButtonRow {
+                let subr = row as! KeyboardButtonRow
+                for sub in subr.buttonStackView.arrangedSubviews {
+                    for gesture in sub.gestureRecognizers ?? []{
+                        sub.removeGestureRecognizer(gesture)
+                    }
+                }
+            }
+        }
         subviews.forEach {
             removeArrangedSubview($0)
             $0.removeFromSuperview()
